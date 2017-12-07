@@ -1,0 +1,18 @@
+<ion-content>
+  <div>
+    <ion-item>
+      <ion-header>
+        <ion-toolbar color="dark" padding col-12>
+          <ion-title>DEMOGRAPHIC SURVEILLANCE SYSTEM</ion-title>
+        </ion-toolbar>
+      </ion-header>
+    </ion-item>
+  </div>
+
+  <!-- Test the connection to DB-->
+  <ion-list *ngFor="let fw of fieldworkers">
+    <ion-item>
+      {{fw.firstName}} {{fw.lastName}}
+    </ion-item>
+  </ion-list>
+</ion-content>
