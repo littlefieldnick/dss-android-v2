@@ -9,9 +9,13 @@ import {FieldworkerService} from "../../services/fieldworker.service";
 })
 export class BaselineComponent {
 
-  collectionDate: Date;
+  fields: Array<String> = ["collectionDate", "fieldworker"];
+
+  collectionDate: string;
   fieldworker: Fieldworker;
   fieldworkers: Fieldworker[];
+  selected: string;
+
   constructor(private events: Events, public navCtrl: NavController, public params: NavParams, fwService: FieldworkerService) {
     fwService.getFieldworkers().subscribe(data => {
       this.fieldworkers=data;
@@ -25,5 +29,17 @@ export class BaselineComponent {
 
   changeTab(){
     this.navCtrl.parent.select(1);
+  }
+
+  setSelected(selectedButton: string){
+    this.selected = selectedButton;
+  }
+
+  setFieldworker(fieldworker: Fieldworker){
+    this.fieldworker = fieldworker;
+  }
+
+  submitDate(month, day, year){
+    this.collectionDate= (month + "/" + day + "/" + year).toString();
   }
 }

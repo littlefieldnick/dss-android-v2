@@ -8,7 +8,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {ServiceModule} from "../services/service.module";
 import {BaselineComponent} from "../pages/baseline/baseline.component";
-import {PagesModule} from "../pages/pages.module";
 import {FieldworkerService} from "../services/fieldworker.service";
 import {HttpModule} from "@angular/http";
 
@@ -32,7 +31,6 @@ import {HttpModule} from "@angular/http";
   providers: [
     StatusBar,
     SplashScreen,
-    PagesModule,
     FieldworkerService,
     ServiceModule,
     {provide: ErrorHandler, useClass: IonicErrorHandler}

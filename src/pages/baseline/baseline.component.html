@@ -10,9 +10,85 @@
   </div>
 
   <!-- Test the connection to DB-->
-  <ion-list *ngFor="let fw of fieldworkers">
-    <ion-item>
-      {{fw.firstName}} {{fw.lastName}}
-    </ion-item>
-  </ion-list>
+
+
+  <h1 padding-left>Baseline Census</h1>
+  <ion-item-divider></ion-item-divider>
+
+  <!-- Build the column structure for the page -->
+  <ion-row padding-left>
+
+    <!-- Field Column-->
+    <ion-col>
+      <!--Collection Date Field -->
+      <ion-row padding-bottom>
+        <ion-col>
+          <ion-row>
+            <h6>Collection Date:</h6>
+          </ion-row>
+          <ion-row padding-bottom>
+            <button ion-button round outline small (click)="setSelected('collectionDate')">Set Collection Date</button>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+
+      <ion-item-divider></ion-item-divider>
+      <!--Fieldworker Field -->
+      <ion-row padding-bottom>
+        <ion-col>
+          <ion-row>
+            <h6>Fieldworker:</h6>
+          </ion-row>
+          <ion-row padding-bottom>
+            <button ion-button round outline small (click)="setSelected('worker')">Select Fieldworker</button>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+
+    <!-- Selection List for Fieldworker-->
+    <ion-col>
+      <div *ngIf="selected == 'worker'">
+        <div *ngIf="fieldworkers.length == 0; else elseBlock">
+          <strong>No fieldworkers are in the database</strong>
+        </div>
+        <ng-template #elseBlock>
+          <ion-list *ngFor="let worker of fieldworkers">
+            <strong>Select a fieldworker below:</strong>
+            <ion-item>
+              {{worker.firstName}} {{worker.lastName}}
+              <button float-right ion-button (click)="setFieldworker(worker)">Select</button>
+            </ion-item>
+          </ion-list>
+        </ng-template>
+      </div>
+
+      <!-- Date Collection Form -->
+      <div *ngIf="selected == 'collectionDate'">
+        <form>
+          <ion-item>
+           <ion-label>Month (mm)</ion-label>
+            <ion-input type="number" name="month" min="1" max="12" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Day (dd)</ion-label>
+            <ion-input type="number" name="day" min="1" max="31" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Year (yyyy)</ion-label>
+            <ion-input type="number" name="year" min="1990" max="2017" required></ion-input>
+          </ion-item>
+          <button ion-button outline small (click)="submitDate(month, day, year)">Submit Collection Date</button>
+        </form>
+      </div>
+    </ion-col>
+
+    <!-- Data Entry Form -->
+    <ion-col>
+    </ion-col>
+
+    <!-- Options for Field -->
+    <ion-col>
+    </ion-col>
+  </ion-row>
 </ion-content>
