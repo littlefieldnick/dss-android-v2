@@ -11,7 +11,7 @@ export class BaselineComponent {
 
   fields: Array<String> = ["collectionDate", "fieldworker"];
 
-  collectionDate: string;
+  collectionDate: Date;
   fieldworker: Fieldworker;
   fieldworkers: Fieldworker[];
   selected: string;
@@ -37,9 +37,5 @@ export class BaselineComponent {
 
   setFieldworker(fieldworker: Fieldworker){
     this.fieldworker = fieldworker;
-  }
-
-  submitDate(month, day, year){
-    this.collectionDate= (month + "/" + day + "/" + year).toString();
   }
 }
