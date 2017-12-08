@@ -9,7 +9,6 @@
     </ion-item>
   </div>
 
-
   <h1 padding-left>Location</h1>
   <ion-item-divider></ion-item-divider>
 
@@ -24,8 +23,8 @@
           <ion-row>
             <h6>Region: </h6>
           </ion-row>
-          <ion-row padding-left padding-bottom *ngIf="region != null || region != ''">
-            <p></p>
+          <ion-row padding-left padding-bottom *ngIf="region != null && region != undefined">
+            <p>{{region.name}}</p>
           </ion-row>
           <ion-row padding-bottom>
             <button ion-button round outline small (click)="setSelected('region')">Set Location Region</button>
@@ -40,8 +39,8 @@
           <ion-row>
             <h6>District:</h6>
           </ion-row>
-          <ion-row padding-left padding-bottom *ngIf="district != null">
-            <p></p>
+          <ion-row padding-left padding-bottom *ngIf="district != null && district != undefined">
+            <p>{{district.name}}</p>
           </ion-row>
           <ion-row padding-bottom>
             <button ion-button round outline small (click)="setSelected('district')" [disabled]="region == null">Select Location District</button>
@@ -56,8 +55,8 @@
           <ion-row>
             <h6>Village:</h6>
           </ion-row>
-          <ion-row padding-left padding-bottom *ngIf="village != null">
-            <p></p>
+          <ion-row padding-left padding-bottom *ngIf="village != null && village != undefined">
+            <p>{{village.name}}</p>
           </ion-row>
           <ion-row padding-bottom>
             <button ion-button round outline small (click)="setSelected('village')" [disabled]="district == null">Select Location Village</button>
@@ -84,27 +83,42 @@
     <!-- Options for Region-->
     <ion-col padding-top>
       <div *ngIf="selected == 'region'">
-        <button ion-button round outline small> Select an Existing Region</button>
-        <button ion-button round outline small color="secondary"> Create a New Region </button>
+        <button ion-button round outline small (click)="setDisplay('form')"> Create a New Region</button>
+        <button ion-button round outline small color="secondary" (click)="setDisplay('list')"> Select an Existing Region </button>
       </div>
       <div *ngIf="selected == 'district'">
-        <button ion-button round outline small> Select an Existing District</button>
-        <button ion-button round outline color="secondary"> Create a New District </button>
+        <button ion-button round outline small (click)="setDisplay('form')"> Create a New District</button>
+        <button ion-button round outline small color="secondary" (click)="setDisplay('list')"> Select an Existing District </button>
       </div>
       <div *ngIf="selected == 'village'">
-        <button ion-button round outline small> Select an Existing Village</button>
-        <button ion-button round outline small color="secondary"> Create a New Village </button>
+        <button ion-button round outline small (click)="setDisplay('form')"> Create a New Village</button>
+        <button ion-button round outline small color="secondary" (click)="setDisplay('list')"> Select an Existing Village </button>
       </div>
       <div *ngIf="selected == 'location'">
-        <button ion-button round outline small> Select an Existing Location</button>
-        <button ion-button round outline small color="primary"> Create a New Location </button>
+        <button ion-button round outline small (click)="setDisplay('form')"> Create a New Location</button>
+        <button ion-button round outline small color="secondary" (click)="setDisplay('list')"> Select an Existing Location</button>
       </div>
-
-
     </ion-col>
 
     <!-- Data Entry Form -->
     <ion-col>
+      <div *ngIf="displayType=='form'">
+      <form>
+        <ion-item *ngIf="selected =='region'">
+          <ion-label>Region Name</ion-label>
+          <ion-input type="text" name="regionName" [(ngModel)]="region.name"> </ion-input>
+        </ion-item>
+          <ion-item *ngIf="selected=='district'">
+            <ion-label>District Name</ion-label>
+            <ion-input type="text" name="districtName" [(ngModel)]="district.name"> </ion-input>
+          </ion-item>
+          <ion-item *ngIf="selected=='village'">
+            <ion-label>Village Name</ion-label>
+            <ion-input type="text" name="villageName" [(ngModel)]="village.name"> </ion-input>
+          </ion-item>
+          <button ion-button round color="dark" outline (submit)="createLevel()">Create {{this.selected}}</button>
+        </form>
+      </div>
     </ion-col>
 
     <!-- Options for Field -->
