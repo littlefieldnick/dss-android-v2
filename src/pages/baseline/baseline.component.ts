@@ -9,17 +9,21 @@ import {FieldworkerService} from "../../services/fieldworker.service";
 })
 export class BaselineComponent {
 
-  fields: Array<String> = ["collectionDate", "fieldworker"];
-
   collectionDate: Date;
   fieldworker: Fieldworker;
   fieldworkers: Fieldworker[];
   selected: string;
+  id: number;
 
   constructor(private events: Events, public navCtrl: NavController, public params: NavParams, fwService: FieldworkerService) {
     fwService.getFieldworkers().subscribe(data => {
       this.fieldworkers=data;
     })
+
+    this.id = params.get('id');
+    events.subscribe('changeTab', (tab, id) => {
+      this.id = id;
+    });
   }
 
   conditionsSatisfied() {
@@ -37,5 +41,10 @@ export class BaselineComponent {
 
   setFieldworker(fieldworker: Fieldworker){
     this.fieldworker = fieldworker;
+    this.closeFieldworkerList();
+  }
+
+  closeFieldworkerList(){
+    this.selected = null;
   }
 }

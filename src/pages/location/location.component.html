@@ -1,0 +1,122 @@
+<ion-content>
+  <div>
+    <ion-item>
+      <ion-header>
+        <ion-toolbar color="dark" padding col-12>
+          <ion-title>DEMOGRAPHIC SURVEILLANCE SYSTEM</ion-title>
+        </ion-toolbar>
+      </ion-header>
+    </ion-item>
+  </div>
+
+
+  <h1 padding-left>Location</h1>
+  <ion-item-divider></ion-item-divider>
+
+  <!-- Build the column structure for the page -->
+  <ion-row padding-left>
+
+    <!-- Field Column-->
+    <ion-col>
+      <!--Region Field -->
+      <ion-row padding-bottom>
+        <ion-col>
+          <ion-row>
+            <h6>Region: </h6>
+          </ion-row>
+          <ion-row padding-left padding-bottom *ngIf="region != null || region != ''">
+            <p></p>
+          </ion-row>
+          <ion-row padding-bottom>
+            <button ion-button round outline small (click)="setSelected('region')">Set Location Region</button>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+
+      <ion-item-divider></ion-item-divider>
+      <!--District Field -->
+      <ion-row padding-bottom>
+        <ion-col>
+          <ion-row>
+            <h6>District:</h6>
+          </ion-row>
+          <ion-row padding-left padding-bottom *ngIf="district != null">
+            <p></p>
+          </ion-row>
+          <ion-row padding-bottom>
+            <button ion-button round outline small (click)="setSelected('district')" [disabled]="region == null">Select Location District</button>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+
+      <ion-item-divider></ion-item-divider>
+      <!--Village Field -->
+      <ion-row padding-bottom>
+        <ion-col>
+          <ion-row>
+            <h6>Village:</h6>
+          </ion-row>
+          <ion-row padding-left padding-bottom *ngIf="village != null">
+            <p></p>
+          </ion-row>
+          <ion-row padding-bottom>
+            <button ion-button round outline small (click)="setSelected('village')" [disabled]="district == null">Select Location Village</button>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+      <ion-item-divider></ion-item-divider>
+      <!--Location Field -->
+      <ion-row padding-bottom>
+        <ion-col>
+          <ion-row>
+            <h6>Location:</h6>
+          </ion-row>
+          <ion-row padding-left padding-bottom *ngIf="location != null">
+            <p></p>
+          </ion-row>
+          <ion-row padding-bottom>
+            <button ion-button round outline small (click)="setSelected('location')" [disabled]="village == null">Select Location</button>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+
+    <!-- Options for Region-->
+    <ion-col padding-top>
+      <div *ngIf="selected == 'region'">
+        <button ion-button round outline small> Select an Existing Region</button>
+        <button ion-button round outline small color="secondary"> Create a New Region </button>
+      </div>
+      <div *ngIf="selected == 'district'">
+        <button ion-button round outline small> Select an Existing District</button>
+        <button ion-button round outline color="secondary"> Create a New District </button>
+      </div>
+      <div *ngIf="selected == 'village'">
+        <button ion-button round outline small> Select an Existing Village</button>
+        <button ion-button round outline small color="secondary"> Create a New Village </button>
+      </div>
+      <div *ngIf="selected == 'location'">
+        <button ion-button round outline small> Select an Existing Location</button>
+        <button ion-button round outline small color="primary"> Create a New Location </button>
+      </div>
+
+
+    </ion-col>
+
+    <!-- Data Entry Form -->
+    <ion-col>
+    </ion-col>
+
+    <!-- Options for Field -->
+    <ion-col>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-item>
+      <button ion-button float-right outline round small [disabled]="this.location == null"
+              (click)="this.conditionsSatisfied()"> Select a Social Group
+      </button>
+    </ion-item>
+  </ion-row>
+</ion-content>

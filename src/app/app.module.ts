@@ -10,12 +10,14 @@ import {ServiceModule} from "../services/service.module";
 import {BaselineComponent} from "../pages/baseline/baseline.component";
 import {FieldworkerService} from "../services/fieldworker.service";
 import {HttpModule} from "@angular/http";
+import {LocationComponent} from "../pages/location/location.component";
 
 @NgModule({
   declarations: [
     MyApp,
     TabsPage,
-    BaselineComponent
+    BaselineComponent,
+    LocationComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +28,8 @@ import {HttpModule} from "@angular/http";
   entryComponents: [
     MyApp,
     TabsPage,
-    BaselineComponent
+    BaselineComponent,
+    LocationComponent
   ],
   providers: [
     StatusBar,

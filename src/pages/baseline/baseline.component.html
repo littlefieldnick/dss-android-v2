@@ -54,28 +54,36 @@
 
     <!-- Selection List for Fieldworker-->
     <ion-col padding-top>
+
       <div *ngIf="selected == 'worker'">
         <div *ngIf="fieldworkers == null; else elseBlock">
           <strong>No fieldworkers are in the database</strong>
         </div>
-        <ng-template #elseBlock>
-          <strong>Select a fieldworker below:</strong>
-          <ion-list *ngFor="let worker of fieldworkers">
-            <ion-item>
-              {{worker.firstName}} {{worker.lastName}}
-              <button float-right ion-button (click)="setFieldworker(worker)">Select</button>
-            </ion-item>
-          </ion-list>
-        </ng-template>
+        <ion-scroll>
+          <div>
+          <ng-template #elseBlock>
+            <strong>Select a fieldworker below:</strong>
+
+
+            <ion-list *ngFor="let worker of fieldworkers">
+              <ion-item>
+                {{worker.firstName}} {{worker.lastName}}
+                <button float-right ion-button (click)="setFieldworker(worker)">Select</button>
+              </ion-item>
+            </ion-list>
+          </ng-template>
+          </div>
+        </ion-scroll>
       </div>
+
 
       <!-- Date Collection Form -->
       <div *ngIf="selected == 'collectionDate'">
-          <strong>Set Collection Date: </strong>
-          <ion-item>
-            <ion-label>Collection Date</ion-label>
-            <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="collectionDate"></ion-datetime>
-          </ion-item>
+        <strong>Set Collection Date: </strong>
+        <ion-item>
+          <ion-label>Collection Date</ion-label>
+          <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="collectionDate"></ion-datetime>
+        </ion-item>
 
 
       </div>
@@ -90,11 +98,12 @@
     </ion-col>
   </ion-row>
 
-  <ion-row >
+  <ion-row>
     <ion-item>
       <button ion-button float-right outline round small [disabled]="this.collectionDate == null
                                                   || this.fieldworker == null"
-              (click)="this.conditionsSatisfied()"> Select a Location</button>
+              (click)="this.conditionsSatisfied()"> Select a Location
+      </button>
     </ion-item>
   </ion-row>
 </ion-content>
