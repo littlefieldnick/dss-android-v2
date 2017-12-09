@@ -17,7 +17,7 @@ export class BaselineComponent {
 
   constructor(private events: Events, public navCtrl: NavController, public params: NavParams, fwService: FieldworkerService) {
     fwService.getFieldworkers().subscribe(data => {
-      this.fieldworkers=data;
+      this.fieldworkers = data;
     })
 
     this.id = params.get('id');

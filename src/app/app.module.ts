@@ -11,6 +11,7 @@ import {BaselineComponent} from "../pages/baseline/baseline.component";
 import {FieldworkerService} from "../services/fieldworker.service";
 import {HttpModule} from "@angular/http";
 import {LocationComponent} from "../pages/location/location.component";
+import {LocationService} from "../services/location.service";
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {LocationComponent} from "../pages/location/location.component";
     StatusBar,
     SplashScreen,
     FieldworkerService,
+    LocationService,
     ServiceModule,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
