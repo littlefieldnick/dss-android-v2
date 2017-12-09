@@ -5,40 +5,38 @@ import { Headers, Http, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import {Location} from "../model/location";
-import {HttpClient} from "@angular/common/http";
+import {LocationHierarchy} from "../model/location-hierarchy";
 
 @Injectable()
-export class LocationService{
-  private locationUrl = 'http://localhost:8080/locations/';  // URL to web API
+export class LocationHierarchyService{
+  private hierarchyUrl = 'http://localhost:8080/hierarchies/';  // URL to web API
   private headers = new Headers({'Content-Type': 'application/json'});
   private errors: Observable<string>;
   constructor(private http: Http){
-
   }
 
   // Get all customers
-  getLocations(): Observable<Location[]> {
-    return this.http.get(this.locationUrl)
+  getLocationHierarchies(): Observable<LocationHierarchy[]> {
+    return this.http.get(this.hierarchyUrl)
       .map(response => response.json())
   }
 
-  getLocationById(id: number): Observable<Location> {
-    const url = `${this.locationUrl}/${id}`;
+  getHierarchyById(id: number): Observable<LocationHierarchy> {
+    const url = `${this.hierarchyUrl}/${id}`;
     return this.http.get(url)
       .map(response => response.json());
   }
 
-  addLocation(location: Location): Observable<Location>{
+  addHierarchy(hierarchy: LocationHierarchy): Observable<LocationHierarchy>{
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.locationUrl, JSON.stringify(location), options)
+    return this.http.post(this.hierarchyUrl, JSON.stringify(hierarchy), options)
       .map( response => response.json());
 
   }
 
-  removeLocation(id: number): Observable<void>{
-    const url = `${this.locationUrl}/${id}`;
+  removeHierarchy(id: number): Observable<void>{
+    const url = `${this.hierarchyUrl}/${id}`;
     return this.http.delete(url,{headers : this.headers})
       .map(response => null)
   }

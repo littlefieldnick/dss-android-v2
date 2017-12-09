@@ -12,6 +12,7 @@ import {FieldworkerService} from "../services/fieldworker.service";
 import {HttpModule} from "@angular/http";
 import {LocationComponent} from "../pages/location/location.component";
 import {LocationService} from "../services/location.service";
+import {LocationHierarchyService} from "../services/location-hierarchy.service";
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import {LocationService} from "../services/location.service";
     SplashScreen,
     FieldworkerService,
     LocationService,
+    LocationHierarchyService,
     ServiceModule,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

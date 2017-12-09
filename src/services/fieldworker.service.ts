@@ -8,7 +8,7 @@ import { Fieldworker } from '../model/fieldworker';
 
 @Injectable()
 export class FieldworkerService{
-  private fieldworkerUrl = 'http://localhost:7100/fieldworkers';  // URL to web API
+  private fieldworkerUrl = 'http://localhost:8080/fieldworkers';  // URL to web API
   private headers = new Headers({'Content-Type': 'application/json'});
   private errors;
   constructor(private http: Http){

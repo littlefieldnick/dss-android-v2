@@ -75,7 +75,7 @@
             <h6>Location:</h6>
           </ion-row>
           <ion-row padding-left padding-bottom *ngIf="location != null">
-            <p></p>
+            <p>{{location.locationName}}</p>
           </ion-row>
           <ion-row padding-bottom>
             <button ion-button round outline small (click)="setSelected('location')" [disabled]="village == null">Select
@@ -117,7 +117,7 @@
     <ion-col>
       <div *ngIf="displayType=='form'">
         <!-- Data Entry Form -->
-        <form *ngIf="displayType=='form' && selected != 'location'">
+        <form *ngIf="displayType=='form' && selected != 'location'" (ngSubmit)="createLevel()">
           <ion-item *ngIf="selected =='region'">
             <ion-label>Region Name</ion-label>
             <ion-input type="text" name="regionName" [(ngModel)]="region.name"></ion-input>
@@ -130,7 +130,7 @@
             <ion-label>Village Name</ion-label>
             <ion-input type="text" name="villageName" [(ngModel)]="village.name"></ion-input>
           </ion-item>
-          <button ion-button round color="dark" outline (submit)="createLevel()">Create {{this.selected}}</button>
+          <button ion-button round color="dark" outline type="submit">Create {{this.selected}}</button>
         </form>
 
         <!-- Location Entry Form -->
@@ -197,6 +197,41 @@
     </div>
     </ion-col>
   </ion-row>
+
+  <ion-row>
+    <h1 padding-top>Selected Location</h1>
+  </ion-row>
+
+  <ion-list-header>
+    <ion-row>
+      <ion-col col-3>
+        UUID <!--Location name is substitute till db connection-->
+      </ion-col>
+      <ion-col col-3>
+        Name
+      </ion-col>
+      <ion-col col-3>
+        External Id
+      </ion-col>
+      <ion-col col-3>
+        Location Type
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="location != null && location != undefined">
+      <ion-col col-3>
+        {{location.uuid}}  <!--Location name is substitute till db connection-->
+      </ion-col>
+      <ion-col col-3>
+        {{location.locationName}}
+      </ion-col>
+      <ion-col col-3>
+        {{location.extId}}
+      </ion-col>
+      <ion-col col-3>
+        {{location.locationType}}
+      </ion-col>
+    </ion-row>
+  </ion-list-header>
 
   <ion-row>
     <ion-item>

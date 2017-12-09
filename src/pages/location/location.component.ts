@@ -5,6 +5,7 @@ import { LocationHierarchy } from "../../model/location-hierarchy";
 import {LocationHierarchyLevel} from "../../model/location-hierarchy-level";
 import {LocationService} from "../../services/location.service";
 import {Observable} from "rxjs/Observable";
+import {LocationHierarchyService} from "../../services/location-hierarchy.service";
 
 @Component({
   selector: 'page-location',
@@ -22,29 +23,30 @@ export class LocationComponent {
   id: number;
 
   constructor(private events: Events, public navCtrl: NavController, public params: NavParams,
-              private locService: LocationService) {
-
-    locService.getLocations().subscribe(data => {
-      this.locationList = data;
-    });
-
+              private locService: LocationService, private hierarchyService: LocationHierarchyService) {
     this.id = params.get('id');
     events.subscribe('changeTab', (tab, id) => {
       this.id = id;
     });
   }
 
-  conditionsSatisfied() {
-    this.events.publish('conditionsSatisfied', 1, true);
-    this.changeTab();
-  }
-
-  changeTab(){
-    this.navCtrl.parent.select(2);
-  }
-
   setSelected(selectedButton: string){
     this.selected = selectedButton;
+    if(this.selected == "location"){
+      this.locService.getLocations().subscribe(data => {
+        if (data != null) {
+          this.locationList = data.filter(l => l.locationHierarchy.level = this.village.level);
+        }
+
+      });
+    } else {
+      this.hierarchyService.getLocationHierarchies().subscribe(data => {
+        if (data != null) {
+          this.locationHierarchyList = data.filter(l =>
+            l.level.name == this.selected);
+        }
+      });
+    }
     this.displayType = null; //form could be displayed for previous field, reset to unselect in case.
   }
 
@@ -73,27 +75,32 @@ export class LocationComponent {
     if(this.selected == "region") {
       this.region.parent = null;
 
-      let l = new LocationHierarchyLevel();
-      l.name = this.selected;
-      l.keyIdentifier = 1;
+      let r = new LocationHierarchyLevel();
+      r.name = this.selected;
+      r.keyIdentifier = 1;
 
-      this.region.level = l;
+      this.region.level = r;
+
+      this.hierarchyService.addHierarchy(this.region).subscribe(data => {this.region = data})
     } else if(this.selected == "district"){
       this.district.parent = this.region;
 
-      let l = new LocationHierarchyLevel();
-      l.name = this.selected;
-      l.keyIdentifier = 2;
+      let d = new LocationHierarchyLevel();
+      d.name = this.selected;
+      d.keyIdentifier = 2;
 
-      this.district.level = l;
+      this.district.level = d;
+      this.hierarchyService.addHierarchy(this.district).subscribe(data => {this.district = data})
     } else {
       this.village.parent = this.district;
 
-      let l = new LocationHierarchyLevel();
-      l.name = this.selected;
-      l.keyIdentifier = 1;
+      let v = new LocationHierarchyLevel();
+      v.name = this.selected;
+      v.keyIdentifier = 3;
 
-      this.village.level = l;
+      this.village.level = v;
+
+      this.hierarchyService.addHierarchy(this.village).subscribe(data => {this.village = data})
     }
 
     this.resetFields();
@@ -101,6 +108,7 @@ export class LocationComponent {
 
   setLocation(loc: Location){
     this.location = loc;
+    this.resetFields();
   }
 
   setLocationHierarchy(l: LocationHierarchy){
@@ -110,13 +118,26 @@ export class LocationComponent {
         this.district = l;
       else if(this.selected== "village")
         this.village = l;
+
+    this.resetFields();
   }
 
   createLocation(){
-    let locations: Location[];
     this.location.locationHierarchy = this.village;
     this.locService.addLocation(this.location).subscribe(data => {
-      
+      this.location;
     });
+
+    this.resetFields();
+
+  }
+
+  conditionsSatisfied() {
+    this.events.publish('conditionsSatisfied', 1, true);
+    this.changeTab();
+  }
+
+  changeTab(){
+    this.navCtrl.parent.select(2);
   }
 }

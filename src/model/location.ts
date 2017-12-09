@@ -1,7 +1,7 @@
 import {LocationHierarchy} from "./location-hierarchy";
 
 export class Location{
-  uuid: 1;
+  uuid: number;
   extId: string;
   locationName: string;
   locationHierarchy: LocationHierarchy;
