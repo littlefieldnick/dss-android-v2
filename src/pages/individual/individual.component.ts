@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, NavController, Events} from 'ionic-angular';
+import { NavParams, NavController, Events, DateTime} from 'ionic-angular';
 import {SocialGroup} from "../../model/social-group";
 import {Location } from "../../model/location";
 import {IndividualService} from "../../services/individual.service";
@@ -14,7 +14,7 @@ export class IndividualComponent {
   individualsList: Individual[];
   location: Location;
   socialGroup: SocialGroup;
-  selectedIndividuals: Individual[];
+  selectedIndividuals: Individual[] = [];
   displayType: string;
   id: number;
 
@@ -33,10 +33,11 @@ export class IndividualComponent {
   setDisplay(type: string){
     this.displayType = type;
     if(this.displayType == "list")
-      this.individualService.getIndividuals().subscribe(data => this.individualsList);
+      this.individualService.getIndividuals().subscribe(data => this.individualsList = data);
   }
 
   createIndividual(){
+    console.log(this.individual);
     this.individualService.addIndividual(this.individual).subscribe(data =>{
       this.individual = data;
     });
@@ -53,11 +54,11 @@ export class IndividualComponent {
     this.displayType = null;
   }
   conditionsSatisfied() {
-    this.events.publish('conditionsSatisfied', 2, true, "individual", this.selectedIndividuals);
+    this.events.publish('conditionsSatisfied', 3, true, "individuals", this.selectedIndividuals);
     this.changeTab();
   }
 
   changeTab(){
-    this.navCtrl.parent.select(3);
+    this.navCtrl.parent.select(4);
   }
 }

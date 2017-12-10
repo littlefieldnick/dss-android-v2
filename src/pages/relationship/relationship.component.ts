@@ -11,13 +11,14 @@ import {RelationshipService} from "../../services/relationship.service";
   templateUrl: 'relationship.component.html'
 })
 export class RelationshipComponent {
-  individual: Individual = new Individual();
+  relationshipTypes = ["self", "spouse", "sonOrDaughter", "brotherOrSister", "parent", "grandchild", "notRelated",
+    "otherRelative", "unknownRelationshop"];
   individualsList: Individual[];
   relationshipList: Relationship[];
   relationship: Relationship = new Relationship();
   location: Location;
   socialGroup: SocialGroup;
-  selectedRelationships: Relationship[];
+  selectedRelationships: Relationship[] = [];
   pageParams: any;
   displayType: string;
   id: number;
@@ -31,7 +32,9 @@ export class RelationshipComponent {
 
     this.location = this.params.data.location;
     this.socialGroup = this.params.data.socialGroup;
-    this.individualsList = this.params.data.individual;
+    this.individualsList = this.params.data.individuals;
+
+    console.log(this.individualsList);
 
   }
 
@@ -47,7 +50,6 @@ export class RelationshipComponent {
     });
 
     this.selectedRelationships.push(this.relationship);
-    this.individual = new Individual();
     this.displayType = null;
   }
 
@@ -58,7 +60,7 @@ export class RelationshipComponent {
     this.displayType = null;
   }
   conditionsSatisfied() {
-    this.events.publish('conditionsSatisfied', 2, true, "relationships", this.selectedRelationships);
+    this.events.publish('conditionsSatisfied', 4, true, "relationships", this.selectedRelationships);
     this.changeTab();
   }
 

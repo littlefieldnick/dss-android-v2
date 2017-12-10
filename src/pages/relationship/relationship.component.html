@@ -16,22 +16,49 @@
   <ion-row padding-left>
     <ion-col>
       <button ion-button round outline small (click)="setDisplay('form')"> Create a New Relationship</button>
-      <button ion-button round outline small color="secondary" (click)="setDisplay('list')"> Select an Existing
-        Relationship
-      </button>
     </ion-col>
     <ion-col>
       <div *ngIf="this.displayType == 'form' ">
         <form (ngSubmit)="createRelationship()">
 
+          <ion-item>
+            <ion-label>External Id</ion-label>
+            <ion-input type="text"  name="extId" [(ngModel)]="relationship.extId"></ion-input>
+          </ion-item>
+
+            <ion-list-header>Individual A</ion-list-header>
+
+            <ion-list radio-group name="individuala" [(ngModel)]="relationship.individualA">
+              <ion-item *ngFor="let i of this.individualsList">
+                <ion-label>{{i.firstName}} {{i.lastName}}</ion-label>
+                <ion-radio [value]="i"></ion-radio>
+              </ion-item>
+            </ion-list>
+
+
+            <ion-list-header>Individual B</ion-list-header>
+            <ion-list radio-group name="individualb" [(ngModel)]="relationship.individualB">
+              <ion-item *ngFor="let i of this.individualsList">
+                <ion-label>{{i.firstName}} {{i.lastName}}</ion-label>
+                <ion-radio [value]="i"></ion-radio>
+              </ion-item>
+            </ion-list>
+
+          <ion-list-header>Relationship Type</ion-list-header>
+          <ion-list radio-group name="individualb" [(ngModel)]="relationship.aIsToB">
+            <ion-item *ngFor="let i of this.relationshipTypes">
+              <ion-label>{{i}}</ion-label>
+              <ion-radio [value]="i"></ion-radio>
+            </ion-item>
+          </ion-list>
+
+          <ion-item>
+            <ion-label>Start Date</ion-label>
+            <ion-input type="date"  name="start" [(ngModel)]="relationship.startDate"></ion-input>
+          </ion-item>
+          <button ion-button float-right outline round small type="submit"> Create</button>
         </form>
       </div>
-      <div *ngIf="this.displayType == 'list'">
-        <ion-list>
-
-        </ion-list>
-      </div>
-
     </ion-col>
   </ion-row>
 

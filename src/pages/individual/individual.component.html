@@ -23,42 +23,85 @@
     <ion-col>
       <div *ngIf="this.displayType == 'form' ">
         <form (ngSubmit)="createIndividual()">
-
+          <ion-item>
+            <ion-label>First Name</ion-label>
+            <ion-input type="text"  name="firstname" [(ngModel)]="individual.firstName"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Middle Name</ion-label>
+            <ion-input type="text"  name="middlename" [(ngModel)]="individual.middleName"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Last Name</ion-label>
+            <ion-input type="text"  name="lastname" [(ngModel)]="individual.lastName"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>External Id</ion-label>
+            <ion-input type="text"  name="extId" [(ngModel)]="individual.extId"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Gender</ion-label>
+            <ion-input type="text"  name="gender" [(ngModel)]="individual.gender"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Date of Birth</ion-label>
+            <ion-input type="date"  name="dob" [(ngModel)]="individual.dob"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Age</ion-label>
+            <ion-input type="number"  name="age" [(ngModel)]="individual.age"></ion-input>
+          </ion-item>
+          <button ion-button float-right outline round small type="submit"> Create</button>
         </form>
       </div>
       <div *ngIf="this.displayType == 'list'">
-        <ion-list>
-
+        <ion-list >
+          <ion-item *ngFor="let ind of this.individualsList">
+            {{ind.firstName}} {{ind.lastName}}
+            <button ion-button round outline (click)="setIndividual(ind)">Select</button>
+          </ion-item>
         </ion-list>
       </div>
-
     </ion-col>
   </ion-row>
 
   <ion-row>
     <h1 padding-top>Selected Individuals</h1>
   </ion-row>
-
   <ion-list-header>
     <ion-row>
-      <ion-col col-3>
-        UUID <!--Location name is substitute till db connection-->
-      </ion-col>
       <ion-col col-3>
         Individual Name
       </ion-col>
       <ion-col col-3>
         External Id
       </ion-col>
+      <ion-col col-3>
+       Gender
+      </ion-col>
+      <ion-col col-3>
+        Age
+      </ion-col>
     </ion-row>
-    <ion-row *ngIf="location != null && location != undefined">
-
+    <ion-row *ngFor="let individual of selectedIndividuals">
+      <ion-col col-3>
+        {{individual.firstName}} {{individual.middleName}} {{individual.lastName}}
+      </ion-col>
+      <ion-col col-3>
+        {{individual.extId}}
+      </ion-col>
+      <ion-col col-3>
+        {{individual.gender}}
+      </ion-col>
+      <ion-col col-3>
+        {{individual.age}}
+      </ion-col>
     </ion-row>
   </ion-list-header>
 
   <ion-row>
     <ion-item>
-      <button ion-button float-right outline round small [disabled]="this.individual != null"
+      <button ion-button float-right outline round small [disabled]="this.selectedIndividuals[0] == null"
               (click)="this.conditionsSatisfied()"> Select an Individual
       </button>
     </ion-item>

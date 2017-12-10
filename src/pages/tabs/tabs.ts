@@ -4,6 +4,7 @@ import {Events, NavParams, Tabs} from "ionic-angular";
 import {LocationComponent} from "../location/location.component";
 import {SocialGroupComponent} from "../social-group/social-group.component";
 import {IndividualComponent} from "../individual/individual.component";
+import {RelationshipComponent} from "../relationship/relationship.component";
 
 @Component({
   templateUrl: 'tabs.html'
@@ -16,12 +17,13 @@ export class TabsPage {
   tab2Root = LocationComponent;
   tab3Root = SocialGroupComponent;
   tab4Root = IndividualComponent;
+  tab5Root = RelationshipComponent;
 
   locationRequirement = 0;
   socialGroupRequirement = 1;
   individualRequirement = 2;
-  membershipRequirement = 3;
-  relationshipRequirement = 4;
+  relationshipRequirement = 3;
+
 
   requirements = [false, false, false, false, false];
 
@@ -30,9 +32,8 @@ export class TabsPage {
     "location": "",
     "socialGroup": "",
     "individuals": "",
-    "memberships": "",
     "relationships": ""
-  }
+  };
 
   constructor(events: Events, public navParams: NavParams) {
     events.subscribe('conditionsSatisfied', (requirement, value, passField, fieldValue) => {
