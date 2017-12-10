@@ -1,0 +1,95 @@
+<ion-content>
+  <div>
+    <ion-item>
+      <ion-header>
+        <ion-toolbar color="dark" padding col-12>
+          <ion-title>DEMOGRAPHIC SURVEILLANCE SYSTEM</ion-title>
+        </ion-toolbar>
+      </ion-header>
+    </ion-item>
+  </div>
+
+  <h1 padding-left>Social Group</h1>
+  <ion-item-divider></ion-item-divider>
+
+  <!-- Build the column structure for the page -->
+  <ion-row padding-left>
+    <ion-col>
+      <button ion-button round outline small (click)="setDisplay('form')"> Create a New Social Group</button>
+      <button ion-button round outline small color="secondary" (click)="setDisplay('list')"> Select an Existing
+        Social Group
+      </button>
+    </ion-col>
+    <ion-col>
+      <div *ngIf="this.displayType == 'form' ">
+        <form (ngSubmit)="createSocialGroup()">
+          <ion-item>
+            <ion-label>Social Group Name</ion-label>
+            <ion-input type="text"  name="groupName" [(ngModel)]="socialGroup.groupMembership"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>External Id</ion-label>
+            <ion-input type="text"  name="extId" [(ngModel)]="socialGroup.extId"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Social Group Type</ion-label>
+            <ion-input type="text"  name="groupType" [(ngModel)]="socialGroup.socialGroupType"></ion-input>
+          </ion-item>
+          <button ion-button float-right outline round small type="submit"> Create</button>
+        </form>
+      </div>
+      <div *ngIf="this.displayType == 'list'">
+        <ion-list>
+          <ion-item *ngFor="let sg of socialGroupsList">
+            {{sg.groupMembership}}
+            <button ion-button round outline (click)="setSocialGroup(sg)">Select</button>
+          </ion-item>
+        </ion-list>
+      </div>
+
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <h1 padding-top>Selected Social Group</h1>
+  </ion-row>
+
+  <ion-list-header>
+    <ion-row>
+      <ion-col col-3>
+        UUID <!--Location name is substitute till db connection-->
+      </ion-col>
+      <ion-col col-3>
+        Social Group Name
+      </ion-col>
+      <ion-col col-3>
+        External Id
+      </ion-col>
+      <ion-col col-3>
+        Social Group Type
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="location != null && location != undefined">
+      <ion-col col-3>
+        {{socialGroup.uuid}}  <!--Location name is substitute till db connection-->
+      </ion-col>
+      <ion-col col-3>
+        {{socialGroup.groupMembership}}
+      </ion-col>
+      <ion-col col-3>
+        {{socialGroup.extId}}
+      </ion-col>
+      <ion-col col-3>
+        {{socialGroup.socialGroupType}}
+      </ion-col>
+    </ion-row>
+  </ion-list-header>
+
+  <ion-row>
+    <ion-item>
+      <button ion-button float-right outline round small [disabled]="this.socialGroup != null"
+              (click)="this.conditionsSatisfied()"> Select an Individual
+      </button>
+    </ion-item>
+  </ion-row>
+</ion-content>

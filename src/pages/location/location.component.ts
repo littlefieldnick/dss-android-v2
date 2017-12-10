@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NavParams, NavController, Events} from 'ionic-angular';
 import { Location } from "../../model/location"
 import { LocationHierarchy } from "../../model/location-hierarchy";
-import {LocationHierarchyLevel} from "../../model/location-hierarchy-level";
-import {LocationService} from "../../services/location.service";
+import { LocationHierarchyLevel} from "../../model/location-hierarchy-level";
+import { LocationService } from "../../services/location.service";
 import {Observable} from "rxjs/Observable";
 import {LocationHierarchyService} from "../../services/location-hierarchy.service";
 
@@ -133,11 +133,11 @@ export class LocationComponent {
   }
 
   conditionsSatisfied() {
-    this.events.publish('conditionsSatisfied', 1, true);
+    this.events.publish('conditionsSatisfied', 1, true, "location", this.location);
     this.changeTab();
   }
 
   changeTab(){
-    this.navCtrl.parent.select(2);
+    this.navCtrl.parent.select(2, this.location);
   }
 }

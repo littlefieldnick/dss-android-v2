@@ -13,13 +13,16 @@ import {HttpModule} from "@angular/http";
 import {LocationComponent} from "../pages/location/location.component";
 import {LocationService} from "../services/location.service";
 import {LocationHierarchyService} from "../services/location-hierarchy.service";
+import {SocialGroupComponent} from "../pages/social-group/social-group.component";
+import {SocialGroupService} from "../services/social-group.service";
 
 @NgModule({
   declarations: [
     MyApp,
     TabsPage,
     BaselineComponent,
-    LocationComponent
+    LocationComponent,
+    SocialGroupComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,8 @@ import {LocationHierarchyService} from "../services/location-hierarchy.service";
     MyApp,
     TabsPage,
     BaselineComponent,
-    LocationComponent
+    LocationComponent,
+    SocialGroupComponent
   ],
   providers: [
     StatusBar,
@@ -39,6 +43,7 @@ import {LocationHierarchyService} from "../services/location-hierarchy.service";
     FieldworkerService,
     LocationService,
     LocationHierarchyService,
+    SocialGroupService,
     ServiceModule,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

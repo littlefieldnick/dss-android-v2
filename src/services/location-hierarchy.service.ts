@@ -11,11 +11,7 @@ import {LocationHierarchy} from "../model/location-hierarchy";
 export class LocationHierarchyService{
   private hierarchyUrl = 'http://localhost:8080/hierarchies/';  // URL to web API
   private headers = new Headers({'Content-Type': 'application/json'});
-  private errors: Observable<string>;
-  constructor(private http: Http){
-  }
-
-  // Get all customers
+  private errors: Observable<string>;// Get all customers
   getLocationHierarchies(): Observable<LocationHierarchy[]> {
     return this.http.get(this.hierarchyUrl)
       .map(response => response.json())
@@ -40,4 +36,8 @@ export class LocationHierarchyService{
     return this.http.delete(url,{headers : this.headers})
       .map(response => null)
   }
+  constructor(private http: Http){
+  }
+
+
 }
