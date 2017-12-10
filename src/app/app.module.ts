@@ -18,6 +18,7 @@ import {SocialGroupService} from "../services/social-group.service";
 import {IndividualService} from "../services/individual.service";
 import {IndividualComponent} from "../pages/individual/individual.component";
 import {RelationshipService} from "../services/relationship.service";
+import {RelationshipComponent} from "../pages/relationship/relationship.component";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {RelationshipService} from "../services/relationship.service";
     BaselineComponent,
     LocationComponent,
     SocialGroupComponent,
-    IndividualComponent
+    IndividualComponent,
+    RelationshipComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,8 @@ import {RelationshipService} from "../services/relationship.service";
     BaselineComponent,
     LocationComponent,
     SocialGroupComponent,
-    IndividualComponent
+    IndividualComponent,
+    RelationshipComponent
   ],
   providers: [
     StatusBar,

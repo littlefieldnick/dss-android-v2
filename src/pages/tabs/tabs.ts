@@ -25,7 +25,7 @@ export class TabsPage {
 
   requirements = [false, false, false, false, false];
 
-  params = {
+  pageParams = {
     "fieldworker": "",
     "location": "",
     "socialGroup": "",
@@ -37,7 +37,7 @@ export class TabsPage {
   constructor(events: Events, public navParams: NavParams) {
     events.subscribe('conditionsSatisfied', (requirement, value, passField, fieldValue) => {
       this.requirements[requirement] = value;
-      this.params[passField] = fieldValue;
+      this.pageParams[passField] = fieldValue;
     });
   }
 }

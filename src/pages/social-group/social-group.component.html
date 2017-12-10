@@ -40,7 +40,7 @@
       </div>
       <div *ngIf="this.displayType == 'list'">
         <ion-list>
-          <ion-item *ngFor="let sg of socialGroupsList">
+          <ion-item *ngFor="let sg of this.socialGroupsList">
             {{sg.groupMembership}}
             <button ion-button round outline (click)="setSocialGroup(sg)">Select</button>
           </ion-item>
@@ -57,9 +57,6 @@
   <ion-list-header>
     <ion-row>
       <ion-col col-3>
-        UUID <!--Location name is substitute till db connection-->
-      </ion-col>
-      <ion-col col-3>
         Social Group Name
       </ion-col>
       <ion-col col-3>
@@ -69,10 +66,7 @@
         Social Group Type
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="location != null && location != undefined">
-      <ion-col col-3>
-        {{socialGroup.uuid}}  <!--Location name is substitute till db connection-->
-      </ion-col>
+    <ion-row *ngIf="socialGroup != null && socialGroup != undefined">
       <ion-col col-3>
         {{socialGroup.groupMembership}}
       </ion-col>
@@ -87,7 +81,7 @@
 
   <ion-row>
     <ion-item>
-      <button ion-button float-right outline round small [disabled]="this.socialGroup != null"
+      <button ion-button float-right outline round small [disabled]="this.socialGroup == null || this.socialGroup == undefined"
               (click)="this.conditionsSatisfied()"> Select an Individual
       </button>
     </ion-item>

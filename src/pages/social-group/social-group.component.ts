@@ -12,27 +12,29 @@ export class SocialGroupComponent {
   socialGroup: SocialGroup = new SocialGroup();
   socialGroupsList: SocialGroup[];
   location: Location;
-  pageParams: any;
   displayType: string;
   id: number;
 
   constructor(private events: Events, public navCtrl: NavController, public params: NavParams, public sgService: SocialGroupService) {
     this.id = this.params.get('id');
-    this.pageParams = this.params.get('params');
     events.subscribe('changeTab', (tab, id) => {
       this.id = id;
     });
 
-    this.location = this.params.data["location"];
-
-    this.sgService.getSocialGroups().subscribe(data => this.socialGroupsList);
+    this.location = this.params.data.location;
   }
 
   setDisplay(type: string){
     this.displayType = type;
+
+    if(this.displayType == "list") {
+      this.sgService.getSocialGroups().subscribe(data => this.socialGroupsList = data);
+      console.log(this.socialGroupsList)
+    }
   }
 
   createSocialGroup(){
+    this.socialGroup.location = this.location;
     this.sgService.addGroup(this.socialGroup).subscribe(data =>{
       this.socialGroup = data;
     });
