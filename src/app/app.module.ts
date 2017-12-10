@@ -15,6 +15,9 @@ import {LocationService} from "../services/location.service";
 import {LocationHierarchyService} from "../services/location-hierarchy.service";
 import {SocialGroupComponent} from "../pages/social-group/social-group.component";
 import {SocialGroupService} from "../services/social-group.service";
+import {IndividualService} from "../services/individual.service";
+import {IndividualComponent} from "../pages/individual/individual.component";
+import {RelationshipService} from "../services/relationship.service";
 
 @NgModule({
   declarations: [
@@ -22,7 +25,8 @@ import {SocialGroupService} from "../services/social-group.service";
     TabsPage,
     BaselineComponent,
     LocationComponent,
-    SocialGroupComponent
+    SocialGroupComponent,
+    IndividualComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,8 @@ import {SocialGroupService} from "../services/social-group.service";
     TabsPage,
     BaselineComponent,
     LocationComponent,
-    SocialGroupComponent
+    SocialGroupComponent,
+    IndividualComponent
   ],
   providers: [
     StatusBar,
@@ -44,6 +49,8 @@ import {SocialGroupService} from "../services/social-group.service";
     LocationService,
     LocationHierarchyService,
     SocialGroupService,
+    IndividualService,
+    RelationshipService,
     ServiceModule,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

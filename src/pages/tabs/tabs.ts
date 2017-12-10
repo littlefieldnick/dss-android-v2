@@ -3,6 +3,7 @@ import {BaselineComponent} from "../baseline/baseline.component";
 import {Events, NavParams, Tabs} from "ionic-angular";
 import {LocationComponent} from "../location/location.component";
 import {SocialGroupComponent} from "../social-group/social-group.component";
+import {IndividualComponent} from "../individual/individual.component";
 
 @Component({
   templateUrl: 'tabs.html'
@@ -14,6 +15,7 @@ export class TabsPage {
   tab1Root = BaselineComponent;
   tab2Root = LocationComponent;
   tab3Root = SocialGroupComponent;
+  tab4Root = IndividualComponent;
 
   locationRequirement = 0;
   socialGroupRequirement = 1;
@@ -27,8 +29,8 @@ export class TabsPage {
     "fieldworker": "",
     "location": "",
     "socialGroup": "",
-    "individual": "",
-    "membership": "",
+    "individuals": "",
+    "memberships": "",
     "relationships": ""
   }
 
