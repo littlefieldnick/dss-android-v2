@@ -40,7 +40,7 @@
       <ion-row padding-bottom>
         <ion-col>
           <ion-row>
-            <h6>Fieldworker:</h6>
+            <h6>Fieldworker (Optional): </h6>
           </ion-row>
           <ion-row padding-left padding-bottom *ngIf="fieldworker != null">
             <p>{{fieldworker.firstName}} {{fieldworker.lastName}}</p>
@@ -100,8 +100,7 @@
 
   <ion-row>
     <ion-item>
-      <button ion-button float-right outline round small [disabled]="this.collectionDate == null
-                                                  || this.fieldworker == null"
+      <button ion-button float-right outline round small [disabled]="this.collectionDate == null"
               (click)="this.conditionsSatisfied()"> Select a Location
       </button>
     </ion-item>
