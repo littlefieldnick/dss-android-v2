@@ -219,6 +219,7 @@ export class LocationComponent {
       } else {
         this.formSubmitted = false;
         this.resetFields();
+        this.locationForm.reset();
       }
     }
   }

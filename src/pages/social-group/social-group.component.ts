@@ -59,7 +59,7 @@ export class SocialGroupComponent {
         });
 
       if (this.err) {
-        this.location = new Location();
+        this.socialGroup = new SocialGroup();
       } else {
         this.formSubmitted = false;
         this.displayType = null;
