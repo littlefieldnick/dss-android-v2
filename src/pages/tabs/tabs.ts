@@ -12,7 +12,6 @@ import {SummaryComponent} from "../summary/summary.component";
 export class TabsPage {
 
   @ViewChild(Tabs) tabs: Tabs;
-  @ViewChild(Content) content: Tabs;
   tab1Root = BaselineComponent;
   tab2Root = LocationComponent;
   tab3Root = SocialGroupComponent;

@@ -118,7 +118,7 @@
   </ion-row>
 
   <ion-row>
-    <h1 padding-top padding-right>Selected Individuals</h1>
+    <h1 padding-top padding-left>Selected Individuals</h1>
   </ion-row>
   <ion-list-header>
     <ion-row>
@@ -154,7 +154,7 @@
   <ion-row>
     <ion-item>
       <button ion-button float-right outline round small [disabled]="this.selectedIndividuals[0] == null"
-              (click)="this.conditionsSatisfied()"> Select an Individual
+              (click)="this.conditionsSatisfied()"> Complete Census
       </button>
     </ion-item>
   </ion-row>

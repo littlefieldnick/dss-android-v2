@@ -26,20 +26,11 @@ export class SocialGroupComponent {
       this.id = id;
     });
 
-    //reset for new entry
-    events.subscribe('reset', () => {
-      this.location = null;
-      this.groupForm.reset();
-      this.formSubmitted = false;
-      this.err = false;
-      this.displayType = null;
-      this.socialGroup = null;
-    });
 
     this.location = this.params.data.location;
 
     this.groupForm = formBuilder.group({
-      name: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z ]*')])],
+      name: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z 0-9]*')])],
       extId:['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')])],
       type: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z ]*')])],
     });

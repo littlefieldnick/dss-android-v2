@@ -41,23 +41,6 @@ export class LocationComponent {
     });
 
 
-    //Reset the form
-    events.subscribe('reset', () => {
-      this.location = null;
-      this.region = null;
-      this.village = null;
-      this.district = null;
-      this.regionForm.reset();
-      this.districtForm.reset();
-      this.villageForm.reset();
-      this.locationForm.reset();
-      this.formSubmitted = false;
-      this.errors = null;
-      this.displayType = null;
-      this.selected = null;
-    });
-
-
     //Create Forms for page
     this.regionForm = formBuilder.group({
       regionName: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')])],
@@ -72,7 +55,7 @@ export class LocationComponent {
     });
 
     this.locationForm = formBuilder.group({
-      name: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z ]*')])],
+      name: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')])],
       extId:['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')])],
       type: ['', Validators.compose([Validators.required])],
       latitude:['', Validators.compose([Validators.required, Validators.pattern('[0-9]*.[0-9]*'),

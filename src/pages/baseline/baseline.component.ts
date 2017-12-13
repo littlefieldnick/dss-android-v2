@@ -21,12 +21,6 @@ export class BaselineComponent {
     events.subscribe('changeTab', (tab, id) => {
       this.id = id;
     });
-
-    events.subscribe('reset', () => {
-      this.collectionDate = null;
-      this.fieldworker = null;
-      this.selected = null;
-    });
   }
 
   conditionsSatisfied() {

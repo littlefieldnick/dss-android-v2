@@ -26,11 +26,6 @@ export class SummaryComponent{
       this.id = id;
     });
 
-    events.subscribe('reset', () => {
-      this.location = null;
-      this.social = null;
-      this.individuals = null;
-    });
 
     this.location = this.params.data.location;
     this.social = this.params.data.socialGroup;

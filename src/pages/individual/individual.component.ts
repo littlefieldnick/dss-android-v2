@@ -28,16 +28,6 @@ export class IndividualComponent {
       this.id = id;
     });
 
-    //Reset fields for new form
-    events.subscribe('reset', () => {
-      this.location = null;
-      this.individualForm.reset();
-      this.selectedIndividuals = [];
-      this.err = false;
-      this.displayType = null;
-      this.socialGroup = null;
-    });
-
     //Forms
     this.individualForm = formBuilder.group({
       firstName: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z ]*')])],
