@@ -14,20 +14,20 @@ export class LocationHierarchyService{
   private errors: Observable<string>;// Get all customers
   getLocationHierarchies(): Observable<LocationHierarchy[]> {
     return this.http.get(this.hierarchyUrl)
-      .map(response => response.json())
+      .map(response => response.json(), err => err.response())
   }
 
   getHierarchyById(id: number): Observable<LocationHierarchy> {
     const url = `${this.hierarchyUrl}/${id}`;
     return this.http.get(url)
-      .map(response => response.json());
+      .map(response => response.json(), err => err.response());
   }
 
   addHierarchy(hierarchy: LocationHierarchy): Observable<LocationHierarchy>{
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(this.hierarchyUrl, JSON.stringify(hierarchy), options)
-      .map( response => response.json());
+      .map( response => response.json(), err => err.response());
 
   }
 

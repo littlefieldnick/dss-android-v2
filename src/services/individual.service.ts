@@ -20,20 +20,20 @@ export class IndividualService{
   // Get all customers
   getIndividuals(): Observable<Individual[]> {
     return this.http.get(this.individualUrl)
-      .map(response => response.json())
+      .map(response => response.json(), err => err.json())
   }
 
   getIndividualById(id: number): Observable<Individual> {
     const url = `${this.individualUrl}/${id}`;
     return this.http.get(url)
-      .map(response => response.json());
+      .map(response => response.json(), err => err.json());
   }
 
   addIndividual(individual: Individual): Observable<Individual>{
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(this.individualUrl, JSON.stringify(individual), options)
-      .map( response => response.json());
+      .map( response => response.json(), err => err.json());
 
   }
 

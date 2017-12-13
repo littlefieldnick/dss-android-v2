@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import {Events, Platform} from 'ionic-angular';
 
 import {TabsPage} from "../pages/tabs/tabs";
 @Component({
@@ -9,10 +9,12 @@ import {TabsPage} from "../pages/tabs/tabs";
 export class MyApp {
   rootPage:any = TabsPage;
 
-  constructor(platform: Platform) {
+  constructor(platform: Platform, private events: Events) {
     platform.ready().then(() => {
 
     });
+
+
   }
 }
 

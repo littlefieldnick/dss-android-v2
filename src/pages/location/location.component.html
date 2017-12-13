@@ -23,10 +23,10 @@
           <ion-row>
             <h6>Region: </h6>
           </ion-row>
-          <ion-row padding-left padding-bottom *ngIf="region != null && region != undefined">
+          <ion-row padding-left *ngIf="region != null && region != undefined">
             <p>{{region.name}}</p>
           </ion-row>
-          <ion-row padding-bottom>
+          <ion-row>
             <button ion-button round outline small (click)="setSelected('region')">Set Location Region</button>
           </ion-row>
         </ion-col>
@@ -42,7 +42,7 @@
           <ion-row padding-left padding-bottom *ngIf="district != null && district != undefined">
             <p>{{district.name}}</p>
           </ion-row>
-          <ion-row padding-bottom>
+          <ion-row>
             <button ion-button round outline small (click)="setSelected('district')" [disabled]="region == null">Select
               Location District
             </button>
@@ -60,7 +60,7 @@
           <ion-row padding-left padding-bottom *ngIf="village != null && village != undefined">
             <p>{{village.name}}</p>
           </ion-row>
-          <ion-row padding-bottom>
+          <ion-row>
             <button ion-button round outline small (click)="setSelected('village')" [disabled]="district == null">Select
               Location Village
             </button>
@@ -117,41 +117,78 @@
     <ion-col>
       <div *ngIf="displayType=='form'">
         <!-- Data Entry Form -->
-        <form *ngIf="displayType=='form' && selected != 'location'" (ngSubmit)="createLevel()">
-          <ion-item *ngIf="selected =='region'">
-            <ion-label>Region Name</ion-label>
-            <ion-input type="text" name="regionName" [(ngModel)]="region.name"></ion-input>
+        <form [formGroup]="regionForm" *ngIf="displayType=='form' && selected == 'region'" (ngSubmit)="createLevel()">
+          <ion-item>
+            <ion-label>Name</ion-label>
+            <ion-input type="text" formControlName="regionName" [(ngModel)]="region.name" required></ion-input>
           </ion-item>
-          <ion-item *ngIf="selected=='district'">
-            <ion-label>District Name</ion-label>
-            <ion-input type="text" name="districtName" [(ngModel)]="district.name"></ion-input>
+
+          <ion-item *ngIf="regionForm.controls.regionName.hasError('required') && regionForm.controls.regionName.dirty">
+            <p ion-text color="danger">A region name is required.</p>
           </ion-item>
-          <ion-item *ngIf="selected=='village'">
-            <ion-label>Village Name</ion-label>
-            <ion-input type="text" name="villageName" [(ngModel)]="village.name"></ion-input>
+          <ion-item *ngIf="regionForm.controls.regionName.hasError('pattern') && regionForm.controls.regionName.dirty">
+            <p ion-text color="danger"> A region name must match this pattern [a-zA-Z].</p>
           </ion-item>
-          <button ion-button round color="dark" outline type="submit">Create {{this.selected}}</button>
+
+          <button ion-button round color="dark" [disabled]="!regionForm.valid" outline type="submit">Create {{this.selected}}</button>
+        </form>
+
+        <form [formGroup]="districtForm" *ngIf="displayType=='form' && selected == 'district'" (ngSubmit)="createLevel()">
+          <ion-item>
+          <ion-label>Name</ion-label>
+          <ion-input type="text" formControlName="districtName" [(ngModel)]="district.name" required></ion-input>
+          </ion-item>
+          <ion-item *ngIf="districtForm.controls.districtName.hasError('required') && districtForm.controls.districtName.dirty">
+            <p ion-text color="danger">A district name is required.</p>
+          </ion-item>
+          <ion-item *ngIf="districtForm.controls.districtName.hasError('pattern') && districtForm.controls.districtName.dirty">
+            <p ion-text color="danger"> A district name must match this pattern [a-zA-Z].</p>
+          </ion-item>
+
+          <button ion-button round color="dark" [disabled]="!districtForm.valid" outline type="submit">Create {{this.selected}}</button>
+        </form>
+
+        <form [formGroup]="villageForm" *ngIf="displayType=='form' && selected == 'village'" (ngSubmit)="createLevel()">
+          <ion-item>
+          <ion-label>Name</ion-label>
+
+          <ion-input type="text" formControlName="villageName" [(ngModel)]="village.name" required></ion-input>
+          </ion-item>
+          <ion-item *ngIf="villageForm.controls.villageName.hasError('required') && villageForm.controls.villageName.dirty">
+            <p ion-text color="danger">A village name is required.</p>
+          </ion-item>
+          <ion-item *ngIf="villageForm.controls.villageName.hasError('pattern') && villageForm.controls.villageName.dirty">
+            <p ion-text color="danger"> A village name must match this pattern [a-zA-Z].</p>
+          </ion-item>
+
+          <button ion-button round color="dark" [disabled]="!villageForm.valid" outline type="submit">Create {{this.selected}}</button>
         </form>
 
         <!-- Location Entry Form -->
-        <form *ngIf="selected == 'location'" (ngSubmit)="createLocation()">
+        <form [formGroup]="locationForm" *ngIf="selected == 'location'" (ngSubmit)="createLocation()">
           <ion-item>
-            <ion-label floating>
-              Name
-            </ion-label>
-            <ion-input type="text" name="locName" [(ngModel)]="location.locationName"></ion-input>
+            <ion-label floating> Name </ion-label>
+            <ion-input type="text" formControlName="name" [(ngModel)]="location.locationName"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="locationForm.controls.name.hasError('required') && locationForm.controls.name.dirty">
+            <p ion-text color="danger">A location name is required.</p>
+          </ion-item>
+          <ion-item *ngIf="locationForm.controls.name.hasError('pattern') && locationForm.controls.name.dirty">
+            <p ion-text color="danger">A location name must match this pattern [a-zA-Z].</p>
           </ion-item>
           <ion-item>
-            <ion-label floating>
-              External Id
-            </ion-label>
-            <ion-input type="text" name="extId" [(ngModel)]="location.extId"></ion-input>
+            <ion-label floating> External Id </ion-label>
+            <ion-input type="text" formControlName="extId" [(ngModel)]="location.extId"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="locationForm.controls.extId.hasError('required') && locationForm.controls.extId.dirty">
+            <p ion-text color="danger">A location name is required.</p>
+          </ion-item>
+          <ion-item *ngIf="locationForm.controls.extId.hasError('pattern') && locationForm.controls.extId.dirty">
+            <p ion-text color="danger">A location name must match this pattern [a-zA-Z0-9].</p>
           </ion-item>
           <ion-item>
-            <ion-label floating>
-              Type
-            </ion-label>
-            <ion-select name="locType" [(ngModel)]="location.locationType">
+            <ion-label floating>Type </ion-label>
+            <ion-select formControlName="type" [(ngModel)]="location.locationType">
               <ion-option>
                 Rural
               </ion-option>
@@ -159,20 +196,43 @@
                 Urban
               </ion-option>
             </ion-select>
+            <ion-item *ngIf="locationForm.controls.type.hasError('required') && locationForm.controls.type.touched">
+              <p ion-text color="danger">A location type is required.</p>
+            </ion-item>
           </ion-item>
           <ion-item>
-            <ion-label floating>
-              Latitude
-            </ion-label>
-            <ion-input type="text" name="locLatitude" [(ngModel)]="location.latitude"></ion-input>
+            <ion-label floating> Latitude </ion-label>
+            <ion-input type="text" formControlName="latitude" [(ngModel)]="location.latitude"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="locationForm.controls.latitude.hasError('required') && locationForm.controls.latitude.dirty">
+            <p ion-text color="danger">A location latitude is required.</p>
+          </ion-item>
+          <ion-item *ngIf="locationForm.controls.latitude.hasError('pattern')">
+            <p ion-text color="danger">A location latitude must match this pattern [0-9*.0-9*].</p>
+          </ion-item>
+          <ion-item *ngIf="locationForm.controls.latitude.hasError('min')">
+            <p ion-text color="danger">A location latitude must be greater than or equal to -90 degrees.</p>
+          </ion-item>
+          <ion-item *ngIf="locationForm.controls.latitude.hasError('max')">
+            <p ion-text color="danger">A location latitude must be less than or equal to 90 degrees.</p>
           </ion-item>
           <ion-item>
-            <ion-label floating>
-              Longitude
-            </ion-label>
-            <ion-input type="text" name="locLongitude" [(ngModel)]="location.longitude"></ion-input>
+            <ion-label floating> Longitude </ion-label>
+            <ion-input type="text" formControlName="longitude" [(ngModel)]="location.longitude"></ion-input>
           </ion-item>
-          <button ion-button round color="dark" outline type="submit">Create {{this.selected}}</button>
+          <ion-item *ngIf="locationForm.controls.longitude.hasError('required') && locationForm.controls.longitude.dirty">
+            <p ion-text color="danger">A location longitude is required.</p>
+          </ion-item>
+          <ion-item *ngIf="locationForm.controls.longitude.hasError('pattern') && locationForm.controls.longitude.dirty">
+            <p ion-text color="danger">A location longitude must match this pattern [0-9*.0-9*].</p>
+          </ion-item>
+          <ion-item *ngIf="locationForm.controls.longitude.hasError('min')">
+            <p ion-text color="danger">A location longitude must be greater than or equal to -180 degrees.</p>
+          </ion-item>
+          <ion-item *ngIf="locationForm.controls.longitude.hasError('max')">
+            <p ion-text color="danger">A location longitude must be less than or equal to 180 degrees.</p>
+          </ion-item>
+          <button ion-button round color="dark" [disabled]="!locationForm.valid" outline type="submit">Create {{this.selected}}</button>
         </form>
       </div>
 
@@ -199,10 +259,10 @@
   </ion-row>
 
   <ion-row>
-    <h1 padding-top>Selected Location</h1>
+    <h1 padding-top padding-left>Selected Location</h1>
   </ion-row>
 
-  <ion-list-header>
+  <ion-list-header padding-left>
     <ion-row>
       <ion-col col-3>
         UUID <!--Location name is substitute till db connection-->

@@ -15,14 +15,17 @@ export class BaselineComponent {
   selected: string;
   id: number;
 
-  constructor(private events: Events, public navCtrl: NavController, public params: NavParams, fwService: FieldworkerService) {
-    fwService.getFieldworkers().subscribe(data => {
-      this.fieldworkers = data;
-    })
-
+  constructor(private events: Events, public navCtrl: NavController, public params: NavParams, public fwService: FieldworkerService) {
+    //Change tab
     this.id = params.get('id');
     events.subscribe('changeTab', (tab, id) => {
       this.id = id;
+    });
+
+    events.subscribe('reset', () => {
+      this.collectionDate = null;
+      this.fieldworker = null;
+      this.selected = null;
     });
   }
 
@@ -37,6 +40,12 @@ export class BaselineComponent {
 
   setSelected(selectedButton: string){
     this.selected = selectedButton;
+
+    if(this.selected == 'worker') {
+      this.fwService.getFieldworkers().subscribe(data => {
+        this.fieldworkers = data;
+      });
+    }
   }
 
   setFieldworker(fieldworker: Fieldworker){

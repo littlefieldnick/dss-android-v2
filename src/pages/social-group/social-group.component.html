@@ -22,20 +22,42 @@
     </ion-col>
     <ion-col>
       <div *ngIf="this.displayType == 'form' ">
-        <form (ngSubmit)="createSocialGroup()">
+        <form [formGroup]="groupForm" (ngSubmit)="createSocialGroup()">
           <ion-item>
             <ion-label>Social Group Name</ion-label>
-            <ion-input type="text"  name="groupName" [(ngModel)]="socialGroup.groupMembership"></ion-input>
+            <ion-input type="text" formControlName="name" [(ngModel)]="socialGroup.groupMembership"></ion-input>
           </ion-item>
-          <ion-item>
-            <ion-label>External Id</ion-label>
-            <ion-input type="text"  name="extId" [(ngModel)]="socialGroup.extId"></ion-input>
+
+          <ion-item *ngIf="groupForm.controls.name.hasError('required') && groupForm.controls.name.touched">
+            <p ion-text color="danger">A social group name is required.</p>
           </ion-item>
-          <ion-item>
-            <ion-label>Social Group Type</ion-label>
-            <ion-input type="text"  name="groupType" [(ngModel)]="socialGroup.socialGroupType"></ion-input>
+          <ion-item *ngIf="groupForm.controls.name.hasError('pattern') && groupForm.controls.name.touched">
+            <p ion-text color="danger"> A social group name must match this pattern [a-z, A-Z].</p>
           </ion-item>
-          <button ion-button float-right outline round small type="submit"> Create</button>
+            <ion-item>
+              <ion-label>External Id</ion-label>
+              <ion-input type="text" formControlName="extId" [(ngModel)]="socialGroup.extId"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="groupForm.controls.extId.hasError('required') && groupForm.controls.extId.touched">
+              <p ion-text color="danger">A social groups external id is required.</p>
+            </ion-item>
+            <ion-item *ngIf="groupForm.controls.extId.hasError('pattern') && groupForm.controls.extId.touched">
+              <p ion-text color="danger"> A social groups external id must match this pattern [a-z, A-Z, 0-9].</p>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Social Group Type</ion-label>
+              <ion-input type="text" formControlName="type" [(ngModel)]="socialGroup.socialGroupType"></ion-input>
+            </ion-item>
+
+            <ion-item *ngIf="groupForm.controls.type.hasError('required') && groupForm.controls.type.touched">
+              <p ion-text color="danger">A social group type is required.</p>
+            </ion-item>
+            <ion-item *ngIf="groupForm.controls.type.hasError('pattern') && groupForm.controls.type.touched">
+              <p ion-text color="danger"> A social groups type must match this pattern [a-z, A-Z].</p>
+            </ion-item>
+
+            <button ion-button float-right [disabled]="!groupForm.valid" outline round small type="submit"> Create</button>
         </form>
       </div>
       <div *ngIf="this.displayType == 'list'">
@@ -50,11 +72,11 @@
     </ion-col>
   </ion-row>
 
-  <ion-row>
+  <ion-row padding-left>
     <h1 padding-top>Selected Social Group</h1>
   </ion-row>
 
-  <ion-list-header>
+  <ion-list-header padding-left>
     <ion-row>
       <ion-col col-3>
         Social Group Name
@@ -81,7 +103,8 @@
 
   <ion-row>
     <ion-item>
-      <button ion-button float-right outline round small [disabled]="this.socialGroup == null || this.socialGroup == undefined"
+      <button ion-button float-right outline round small
+              [disabled]="this.socialGroup == null || this.socialGroup == undefined"
               (click)="this.conditionsSatisfied()"> Select an Individual
       </button>
     </ion-item>

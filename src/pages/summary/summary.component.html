@@ -1,0 +1,121 @@
+<ion-content>
+  <div>
+    <ion-item>
+      <ion-header>
+        <ion-toolbar color="dark" padding col-12>
+          <ion-title>DEMOGRAPHIC SURVEILLANCE SYSTEM</ion-title>
+        </ion-toolbar>
+      </ion-header>
+    </ion-item>
+  </div>
+
+  <h1 padding-left>Submitted Census Data</h1>
+  <ion-item-divider></ion-item-divider>
+
+  <ion-row padding-left>
+    <h3 padding-top>Selected Location</h3>
+  </ion-row>
+
+  <ion-list-header padding-left>
+    <ion-row>
+      <ion-col col-3>
+        UUID <!--Location name is substitute till db connection-->
+      </ion-col>
+      <ion-col col-3>
+        Name
+      </ion-col>
+      <ion-col col-3>
+        External Id
+      </ion-col>
+      <ion-col col-3>
+        Location Type
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="location != null && location != undefined">
+      <ion-col col-3>
+        {{location.uuid}}  <!--Location name is substitute till db connection-->
+      </ion-col>
+      <ion-col col-3>
+        {{location.locationName}}
+      </ion-col>
+      <ion-col col-3>
+        {{location.extId}}
+      </ion-col>
+      <ion-col col-3>
+        {{location.locationType}}
+      </ion-col>
+    </ion-row>
+  </ion-list-header>
+
+  <ion-row padding-left>
+    <h3 padding-top>Selected Social Group</h3>
+  </ion-row>
+
+  <ion-list-header padding-left>
+    <ion-row>
+      <ion-col col-3>
+        Social Group Name
+      </ion-col>
+      <ion-col col-3>
+        External Id
+      </ion-col>
+      <ion-col col-3>
+        Social Group Type
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="social != null && social!= undefined">
+      <ion-col col-3>
+        {{social.groupMembership}}
+      </ion-col>
+      <ion-col col-3>
+        {{social.extId}}
+      </ion-col>
+      <ion-col col-3>
+        {{social.socialGroupType}}
+      </ion-col>
+    </ion-row>
+  </ion-list-header>
+
+  <ion-row padding-left>
+    <h3 padding-top>Selected Individuals</h3>
+  </ion-row>
+
+  <ion-list-header>
+    <ion-row>
+      <ion-col col-3>
+        Individual Name
+      </ion-col>
+      <ion-col col-3>
+        External Id
+      </ion-col>
+      <ion-col col-3>
+        Gender
+      </ion-col>
+      <ion-col col-3>
+        Age
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let individual of individuals">
+      <ion-col col-3>
+        {{individual.firstName}} {{individual.middleName}} {{individual.lastName}}
+      </ion-col>
+      <ion-col col-3>
+        {{individual.extId}}
+      </ion-col>
+      <ion-col col-3>
+        {{individual.gender}}
+      </ion-col>
+      <ion-col col-3>
+        {{individual.age}}
+      </ion-col>
+    </ion-row>
+  </ion-list-header>
+
+  <ion-row>
+    <ion-item>
+      <button ion-button float-right outline round small
+              (click)="this.conditionsSatisfied()"> Start New Census
+      </button>
+    </ion-item>
+  </ion-row>
+</ion-content>

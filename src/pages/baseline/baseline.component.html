@@ -24,12 +24,12 @@
       <ion-row padding-bottom>
         <ion-col>
           <ion-row>
-            <h6>Collection Date: </h6>
+            <h6>Collection Date:</h6>
           </ion-row>
           <ion-row padding-left padding-bottom *ngIf="collectionDate != null || collectionDate != ''">
             <p>{{collectionDate}}</p>
           </ion-row>
-          <ion-row padding-bottom>
+          <ion-row >
             <button ion-button round outline small (click)="setSelected('collectionDate')">Set Collection Date</button>
           </ion-row>
         </ion-col>

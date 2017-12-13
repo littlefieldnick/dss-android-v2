@@ -6,13 +6,11 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import {Location} from "../model/location";
-import {HttpClient} from "@angular/common/http";
 
 @Injectable()
 export class LocationService{
   private locationUrl = 'http://localhost:8080/locations/';  // URL to web API
   private headers = new Headers({'Content-Type': 'application/json'});
-  private errors: Observable<string>;
   constructor(private http: Http){
 
   }
@@ -20,13 +18,13 @@ export class LocationService{
   // Get all customers
   getLocations(): Observable<Location[]> {
     return this.http.get(this.locationUrl)
-      .map(response => response.json())
+      .map(response => response.json(), err => err.json())
   }
 
   getLocationById(id: number): Observable<Location> {
     const url = `${this.locationUrl}/${id}`;
     return this.http.get(url)
-      .map(response => response.json());
+      .map(response => response.json(), err => err.json());
   }
 
   addLocation(location: Location): Observable<Location>{
@@ -34,7 +32,6 @@ export class LocationService{
     let options = new RequestOptions({ headers: headers });
     return this.http.post(this.locationUrl, JSON.stringify(location), options)
       .map( response => response.json());
-
   }
 
   removeLocation(id: number): Observable<void>{
@@ -42,4 +39,5 @@ export class LocationService{
     return this.http.delete(url,{headers : this.headers})
       .map(response => null)
   }
+
 }

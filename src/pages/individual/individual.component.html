@@ -22,36 +22,88 @@
     </ion-col>
     <ion-col>
       <div *ngIf="this.displayType == 'form' ">
-        <form (ngSubmit)="createIndividual()">
+        <form [formGroup]="individualForm" (ngSubmit)="createIndividual()">
           <ion-item>
             <ion-label>First Name</ion-label>
-            <ion-input type="text"  name="firstname" [(ngModel)]="individual.firstName"></ion-input>
+            <ion-input type="text"  formControlName="firstName" [(ngModel)]="individual.firstName"></ion-input>
           </ion-item>
+
+          <ion-item *ngIf="individualForm.controls.firstName.hasError('required') && individualForm.controls.firstName.touched">
+            <p ion-text color="danger">A individuals first name is required.</p>
+          </ion-item>
+          <ion-item *ngIf="individualForm.controls.firstName.hasError('pattern') && individualForm.controls.firstName.touched">
+            <p ion-text color="danger"> A individuals first name must match this pattern [a-z, A-Z].</p>
+          </ion-item>
+
+
           <ion-item>
             <ion-label>Middle Name</ion-label>
-            <ion-input type="text"  name="middlename" [(ngModel)]="individual.middleName"></ion-input>
+            <ion-input type="text"  formControlName="middleName" [(ngModel)]="individual.middleName"></ion-input>
           </ion-item>
+
+          <ion-item *ngIf="individualForm.controls.middleName.hasError('pattern') && individualForm.controls.middleName.touched">
+            <p ion-text color="danger"> A individuals middle name must match this pattern [a-z, A-Z].</p>
+          </ion-item>
+
           <ion-item>
             <ion-label>Last Name</ion-label>
-            <ion-input type="text"  name="lastname" [(ngModel)]="individual.lastName"></ion-input>
+            <ion-input type="text"  formControlName="lastName" [(ngModel)]="individual.lastName"></ion-input>
           </ion-item>
+
+          <ion-item *ngIf="individualForm.controls.lastName.hasError('required') && individualForm.controls.lastName.touched">
+            <p ion-text color="danger">A individuals last name is required.</p>
+          </ion-item>
+          <ion-item *ngIf="individualForm.controls.lastName.hasError('pattern') && individualForm.controls.lastName.touched">
+            <p ion-text color="danger"> A individuals last name must match this pattern [a-z, A-Z].</p>
+          </ion-item>
+
           <ion-item>
             <ion-label>External Id</ion-label>
-            <ion-input type="text"  name="extId" [(ngModel)]="individual.extId"></ion-input>
+            <ion-input type="text"  formControlName="extId" [(ngModel)]="individual.extId"></ion-input>
           </ion-item>
+
+          <ion-item *ngIf="individualForm.controls.extId.hasError('required') && individualForm.controls.extId.touched">
+            <p ion-text color="danger">A individuals external is required.</p>
+          </ion-item>
+          <ion-item *ngIf="individualForm.controls.extId.hasError('pattern') && individualForm.controls.extId.touched">
+            <p ion-text color="danger"> A individuals external id must match this pattern [a-z, A-Z, 0-9].</p>
+          </ion-item>
+
           <ion-item>
             <ion-label>Gender</ion-label>
-            <ion-input type="text"  name="gender" [(ngModel)]="individual.gender"></ion-input>
+            <ion-input type="text"  formControlName="gender" [(ngModel)]="individual.gender"></ion-input>
           </ion-item>
+
+          <ion-item *ngIf="individualForm.controls.gender.hasError('required') && individualForm.controls.gender.touched">
+            <p ion-text color="danger">A individuals gender is required.</p>
+          </ion-item>
+          <ion-item *ngIf="individualForm.controls.gender.hasError('pattern') && individualForm.controls.gender.touched">
+            <p ion-text color="danger"> A individuals gender must match this pattern M for Male, F for Female.</p>
+          </ion-item>
+
           <ion-item>
             <ion-label>Date of Birth</ion-label>
-            <ion-input type="date"  name="dob" [(ngModel)]="individual.dob"></ion-input>
+            <ion-input type="date"  formControlName="dob" [(ngModel)]="individual.dob"></ion-input>
           </ion-item>
+
           <ion-item>
             <ion-label>Age</ion-label>
-            <ion-input type="number"  name="age" [(ngModel)]="individual.age"></ion-input>
+            <ion-input type="number"  formControlName="age" [(ngModel)]="individual.age"></ion-input>
           </ion-item>
-          <button ion-button float-right outline round small type="submit"> Create</button>
+
+          <ion-item *ngIf="individualForm.controls.age.hasError('pattern') && individualForm.controls.age.touched">
+            <p ion-text color="danger"> A individuals age name must consist of this pattern [0-9].</p>
+          </ion-item>
+
+          <ion-item *ngIf="individualForm.controls.age.hasError('min') && individualForm.controls.age.touched">
+            <p ion-text color="danger"> A individuals age must be greater than or equal to 0</p>
+          </ion-item>
+
+          <ion-item *ngIf="individualForm.controls.age.hasError('max') && individualForm.controls.age.touched">
+            <p ion-text color="danger"> A individuals age must be less than or equal to 105</p>
+          </ion-item>
+
+          <button ion-button float-right [disabled]="!individualForm.valid" outline round small type="submit"> Create</button>
         </form>
       </div>
       <div *ngIf="this.displayType == 'list'">
@@ -66,7 +118,7 @@
   </ion-row>
 
   <ion-row>
-    <h1 padding-top>Selected Individuals</h1>
+    <h1 padding-top padding-right>Selected Individuals</h1>
   </ion-row>
   <ion-list-header>
     <ion-row>
